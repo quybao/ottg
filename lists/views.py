@@ -10,6 +10,7 @@ def home_page(request):
 
 
 def view_list(request, list_id):
+    # noinspection PyUnresolvedReferences
     list_ = List.objects.get(id=list_id)
     error = None
     if request.method == 'POST':
@@ -24,6 +25,7 @@ def view_list(request, list_id):
 
 
 def new_list(request):
+    # noinspection PyUnresolvedReferences
     list_ = List.objects.create()
     item = Item(text=request.POST['item_text'], list=list_)
     try:
