@@ -27,7 +27,7 @@ class ItemValidationTest(FunctionalTest):
         self.browser.find_element_by_id(TestConstants.NEW_ITEM_ID).send_keys(Keys.ENTER)
 
         # She receives a similar warning on the list page
-        self.waitfor(lambda:
+        self.wait_for(lambda:
                      self.assertEqual(
                          self.browser.find_element_by_css_selector('.has-error').text,
                          TestConstants.EMPTY_ITEM_ERR_MSG
