@@ -1,17 +1,24 @@
 from django.test import TestCase
 from django.utils.html import escape
 from lists.models import Item, List
+from lists.forms import ItemForm, EMPTY_ITEM_ERROR
+
+EMPTY_LIST_ITEM = "You can't have an empty list item"
 
 
 class HomePageTest(TestCase):
 
-    def test_home_page_return_correct_html(self):
+    def test_uses_home_template(self):
         response = self.client.get('/')
         html = response.content.decode('utf8')
         self.assertIn('<title>To-Do lists</title>', html)
         self.assertTrue(html.endswith('</html>'))
 
         self.assertTemplateUsed(response, 'home.html')
+
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
 
 
 class ListViewTest(TestCase):
@@ -88,7 +95,7 @@ class ListViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'list.html')
-        expected_error = escape("You can't have an empty list item")
+        expected_error = escape(EMPTY_ITEM_ERROR)
         self.assertContains(response, expected_error)
 
 
@@ -98,7 +105,7 @@ class NewListTest(TestCase):
         response = self.client.post('/lists/new', data={'item_text': ''})
         self.assertEqual(response.status_code,200)
         self.assertTemplateUsed(response, 'home.html')
-        expected_error = escape("You can't have an empty list item")
+        expected_error = escape(EMPTY_ITEM_ERROR)
         self.assertContains(response, expected_error)
 
     def test_invalid_list_items_are_not_saved(self):
