@@ -42,9 +42,10 @@ class FunctionalTest(StaticLiveServerTestCase):
                     raise e
                 time.sleep(0.5)
 
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
+
 
 class TestConstants:
-
-    NEW_ITEM_ID = 'id_new_item'
 
     EMPTY_ITEM_ERR_MSG = "You can't have an empty list item"
