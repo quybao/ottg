@@ -33,13 +33,13 @@ class ItemValidationTest(FunctionalTest):
 
         # Again, the browser will not comply
         self.wait_for_row_in_list_table('1: Buy milk')
-        self.wait_for(lambda : self.browser.find_element_by_css_selector(
+        self.wait_for(lambda: self.browser.find_element_by_css_selector(
             '#id_text:invalid'
         ))
 
         # And she can correct by filling some text in
         self.get_item_input_box().send_keys('Make tea')
-        self.wait_for(lambda : self.browser.find_element_by_css_selector(
+        self.wait_for(lambda: self.browser.find_element_by_css_selector(
             '#id_text:valid'
         ))
 

@@ -30,3 +30,7 @@ def login(request):
     if user:
         auth.login(request, user)
     return redirect('/')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

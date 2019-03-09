@@ -141,7 +141,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 LOGGING = {
-        'version' : 1,
+        'version': 1,
         'disable_existing_loggers': False,
         'handlers': {
             'console': {

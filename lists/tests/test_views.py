@@ -13,7 +13,7 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         html = response.content.decode('utf8')
         self.assertIn('<title>To-Do lists</title>', html)
-        self.assertTrue(html.endswith('</html>'))
+        self.assertTrue(html.strip().endswith('</html>'))
 
         self.assertTemplateUsed(response, 'home.html')
 
@@ -133,16 +133,12 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Item.objects.all().count(), 1)
 
-    def test_for_invalid_input_passes_form_to_template(self):
-        response = self.post_invalid_input()
-        self.assertIsInstance(response.context['form'], ExistingListItemForm)
-
 
 class NewListTest(TestCase):
 
     def test_for_invalid_input_renders_home_template(self):
         response = self.client.post('/lists/new', data={'text': ''})
-        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home.html')
 
     def test_validation_errors_are_shown_on_home_page(self):

@@ -3,6 +3,7 @@ from unittest.mock import patch, call
 from accounts.models import Token
 import accounts.views
 
+
 class SendLoginEmailViewTest(TestCase):
 
     def test_direct_to_home_page(self):
@@ -64,6 +65,7 @@ class SendLoginEmailViewTest(TestCase):
             mock_messages.success.call_args,
             call(response.wsgi_request, expected)
         )
+
 
 @patch('accounts.views.auth')
 class LoginViewTest(TestCase):
